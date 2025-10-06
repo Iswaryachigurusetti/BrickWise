@@ -139,6 +139,7 @@
     data.forEach(soil => {
       container.innerHTML += `
         <div class="soil-card">
+         <p><strong>Seller:</strong> ${item.Seller} <span style="color:green;">[${item.SoilName}]</span></p>
           <h3>${soil.soilName}</h3>
           <p><strong>Location:</strong> ${soil.location}</p>
           <p><strong>Price:</strong> ₹${soil.price}/ton</p>
