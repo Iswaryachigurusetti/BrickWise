@@ -153,3 +153,107 @@ fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUb
 
 
 </script>
+  <script>
+function showTab(tabId, btn) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ✅ Load soil listings into Home tab
+function loadSoilListings() {
+  fetch("https://script.google.com/macros/s/YOUR_EXEC_URL/exec")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("soilList");
+      container.innerHTML = "";
+      data.forEach(soil => {
+        container.innerHTML += `
+          <div class="soil-card">
+            <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
+            <h3>${soil.soilName}</h3>
+            <p><strong>Location:</strong> ${soil.location}</p>
+            <p><strong>Price:</strong> ₹${soil.price}/ton</p>
+            <p><strong>Description:</strong> ${soil.description}</p>
+            <p><strong>Contact:</strong> ${soil.contact}</p>
+          </div>
+        `;
+      });
+    })
+    .catch(err => {
+      document.getElementById("soilList").innerHTML = "⚠️ Failed to load data.";
+      console.error("Fetch error:", err);
+    });
+}
+
+// ✅ Seller form submission
+document.getElementById("uploadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const soilName = document.getElementById("soilName").value;
+  const location = document.getElementById("location").value;
+  const price = document.getElementById("price").value;
+  const description = document.getElementById("description").value;
+  const sellerName = document.getElementById("sellerName").value;
+  const contact = document.getElementById("contact").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      sheet: "SoilData",
+      soilName,
+      location,
+      price,
+      description,
+      sellerName,
+      contact
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("✅ Soil uploaded successfully! Redirecting to Home tab...");
+    loadSoilListings();
+    showTab('home', document.querySelector("nav button.tab:nth-child(1)"));
+    document.getElementById("uploadForm").reset();
+  })
+  .catch(err => {
+    alert("⚠️ Failed to upload soil.");
+    console.error("Upload error:", err);
+  });
+});
+
+// ✅ Feedback form submission
+document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("feedbackName").value;
+  const soilName = document.getElementById("feedbackSoil").value;
+  const rating = document.getElementById("rating").value;
+  const comments = document.getElementById("comments").value;
+
+  fetch("https://script.google.com/macros/s/YOUR_EXEC_URL/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      sheet: "FeedbackData",
+      name,
+      soilName,
+      rating,
+      comments
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("✅ Feedback submitted successfully!");
+    document.getElementById("feedbackForm").reset();
+  })
+  .catch(err => {
+    alert("⚠️ Failed to submit feedback.");
+    console.error("Feedback error:", err);
+  });
+});
+
+// ✅ Load soil listings on page load
+window.onload = loadSoilListings;
+</script>
+
