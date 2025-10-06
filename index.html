@@ -131,7 +131,7 @@
     // Highlight clicked tab 
     btn.classList.add('active');
   }
-  fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec")
+fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec")
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById("soilList");
@@ -139,17 +139,17 @@
     data.forEach(soil => {
       container.innerHTML += `
         <div class="soil-card">
-         <p><strong>Seller:</strong> ${item.Seller} <span style="color:green;">[${item.SoilName}]</span></p>
+          <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
           <h3>${soil.soilName}</h3>
           <p><strong>Location:</strong> ${soil.location}</p>
           <p><strong>Price:</strong> ₹${soil.price}/ton</p>
           <p><strong>Description:</strong> ${soil.description}</p>
-          <p><strong>Seller:</strong> ${soil.sellerName}</p>
           <p><strong>Contact:</strong> ${soil.contact}</p>
         </div>
       `;
     });
   });
+
 
 
 </script>
