@@ -131,7 +131,7 @@
     // Highlight clicked tab 
     btn.classList.add('active');
   }
-fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec")
+fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec")
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById("soilList");
@@ -163,7 +163,7 @@ function showTab(tabId, btn) {
 
 // ✅ Load soil listings into Home tab
 function loadSoilListings() {
-  fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec")
+  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec")
     .then(res => res.json())
     .then(data => {
       const container = document.getElementById("soilList");
@@ -198,7 +198,7 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   const sellerName = document.getElementById("sellerName").value;
   const contact = document.getElementById("contact").value;
 
-  fetch("https://script.google.com/macros/s/AKfycbzCMgk-a7faxUz5BSggLzm5Yv_zw1pLUbxeIzLBz1EdxVH1CmqyMWsUUp61a0EmEi-3LA/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
     method: "POST",
     body: new URLSearchParams({
       sheet: "SoilData",
