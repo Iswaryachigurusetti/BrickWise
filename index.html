@@ -58,11 +58,11 @@
   </div>
   <form id="orderForm">
     <h3 data-i18n="placeOrderTitle">🛒 Place Order</h3>
-    <div class="form-group"><label data-i18n="nameLabel">Name</label><input type="text" id="buyerName" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Phone</label><input type="text" id="buyerPhone" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Address</label><textarea id="buyerAddress" required></textarea></div>
-    <div class="form-group"><label data-i18n="nameLabel">Soil Name</label><input type="text" id="selectedSoil" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Quantity (tons)</label><input type="number" id="quantity" required></div>
+    <div class="form-group"><label data-i18n="orderNameLabel">Name</label><input type="text" id="buyerName" required></div>
+    <div class="form-group"><label data-i18n="orderPhoneLabel">Phone</label><input type="text" id="buyerPhone" required></div>
+    <div class="form-group"><label data-i18n="orderAddressLabel">Address</label><textarea id="buyerAddress" required></textarea></div>
+    <div class="form-group"><label data-i18n="orderSoilLabel">Soil Name</label><input type="text" id="selectedSoil" required></div>
+    <div class="form-group"><label data-i18n="orderQuantityLabel">Quantity (tons)</label><input type="number" id="quantity" required></div>
     <button class="submit" type="submit" data-i18n="placeOrderBtn">Place Order</button>
   </form>
 </section>
@@ -71,12 +71,12 @@
 <section id="seller">
   <h2 data-i18n="uploadSoilTitle">📤 Upload Soil</h2>
   <form id="uploadForm">
-    <div class="form-group"><label data-i18n="nameLabel">Soil Name</label><input type="text" id="soilName" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Location</label><input type="text" id="location" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Price (₹)</label><input type="number" id="price" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Description</label><textarea id="description"></textarea></div>
-    <div class="form-group"><label data-i18n="nameLabel">Seller Name</label><input type="text" id="sellerName" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Contact Info</label><input type="text" id="contact" required></div>
+    <div class="form-group"><label data-i18n="uploadSoilNameLabel">Soil Name</label><input type="text" id="soilName" required></div>
+    <div class="form-group"><label data-i18n="uploadLocationLabel">Location</label><input type="text" id="location" required></div>
+    <div class="form-group"><label data-i18n="uploadPriceLabel">Price (₹)</label><input type="number" id="price" required></div>
+    <div class="form-group"><label data-i18n="uploadDescriptionLabel">Description</label><textarea id="description"></textarea></div>
+    <div class="form-group"><label data-i18n="uploadSellerNameLabel">Seller Name</label><input type="text" id="sellerName" required></div>
+    <div class="form-group"><label data-i18n="uploadContactLabel">Contact Info</label><input type="text" id="contact" required></div>
     <button class="submit" type="submit" data-i18n="submitSoilBtn">Submit Soil</button>
   </form>
 </section>
@@ -85,10 +85,10 @@
 <section id="feedback">
   <h2 data-i18n="feedbackTitle">⭐ Submit Feedback</h2>
   <form id="feedbackForm">
-    <div class="form-group"><label data-i18n="nameLabel">Name</label><input type="text" id="feedbackName" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Soil Name</label><input type="text" id="feedbackSoil" required></div>
-    <div class="form-group"><label data-i18n="nameLabel">Rating</label><select id="rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
-    <div class="form-group"><label data-i18n="nameLabel">Comments</label><textarea id="comments"></textarea></div>
+    <div class="form-group"><label data-i18n="feedbackNameLabel"">Name</label><input type="text" id="feedbackName" required></div>
+    <div class="form-group"><label data-i18n="feedbackSoilLabel">Soil Name</label><input type="text" id="feedbackSoil" required></div>
+    <div class="form-group"><label data-i18n="feedbackRatingLabel">Rating</label><select id="rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+    <div class="form-group"><label data-i18n="feedbackCommentsLabel">Comments</label><textarea id="comments"></textarea></div>
     <button class="submit" type="submit" data-i18n="submitFeedbackBtn">Submit Feedback</button>
   </form>
 </section>
