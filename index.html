@@ -235,7 +235,7 @@ document.getElementById("feedbackForm").addEventListener("submit", function(e) {
   const rating = document.getElementById("rating").value;
   const comments = document.getElementById("comments").value;
 
-  fetch("https://script.google.com/macros/s/YOUR_EXEC_URL/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
     method: "POST",
     body: new URLSearchParams({
       sheet: "FeedbackData",
@@ -255,6 +255,38 @@ document.getElementById("feedbackForm").addEventListener("submit", function(e) {
     console.error("Feedback error:", err);
   });
 });
+    // ✅ Place Order form submission
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const buyerName = document.getElementById("buyerName").value;
+  const buyerPhone = document.getElementById("buyerPhone").value;
+  const buyerAddress = document.getElementById("buyerAddress").value;
+  const selectedSoil = document.getElementById("selectedSoil").value;
+  const quantity = document.getElementById("quantity").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      sheet: "OrderData",
+      buyerName,
+      buyerPhone,
+      buyerAddress,
+      selectedSoil,
+      quantity
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("✅ Order placed successfully!");
+    document.getElementById("orderForm").reset();
+  })
+  .catch(err => {
+    alert("⚠️ Failed to place order.");
+    console.error("Order error:", err);
+  });
+});
+
 
 // ✅ Load soil listings on page load
 window.onload = loadSoilListings;
