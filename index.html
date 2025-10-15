@@ -169,19 +169,20 @@ function loadSoilListings() {
     .then(data => {
       const container = document.getElementById("soilList");
       container.innerHTML = "";
-      data.forEach(soil => {
-        container.innerHTML += `
-          <div class="soil-card">
-            <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
-            <h3>${soil.soilName}</h3>
-            <p><strong>Location:</strong> ${soil.location}</p>
-            <p><strong>Price:</strong> ₹${soil.price}/ton</p>
-            <p><strong>Description:</strong> ${soil.description}</p>
-            <p><strong>Contact:</strong> ${soil.contact}</p>
-          </div>
-        `;
-      });
-    })
+  // 👇 Reverse the data to show latest first
+    data.reverse().forEach(soil => {
+      container.innerHTML += `
+        <div class="soil-card">
+          <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
+          <h3>${soil.soilName}</h3>
+          <p><strong>Location:</strong> ${soil.location}</p>
+          <p><strong>Price:</strong> ₹${soil.price}/ton</p>
+          <p><strong>Description:</strong> ${soil.description}</p>
+          <p><strong>Contact:</strong> ${soil.contact}</p>
+        </div>
+      `;
+    });
+  });
     .catch(err => {
       document.getElementById("soilList").innerHTML = "⚠️ Failed to load data.";
       console.error("Fetch error:", err);
