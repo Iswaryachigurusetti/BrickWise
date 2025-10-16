@@ -251,12 +251,35 @@ fetch(orderURL, {
   .then(response => {
     alert("✅ Order placed successfully!");
     document.getElementById("orderForm").reset();
+
+    
+    // 🔁 INSERT THIS BLOCK BELOW
+    const orderCard = document.createElement("div");
+    orderCard.className = "soil-card";
+    orderCard.innerHTML = `
+      <h3>🧾 Order Placed</h3>
+      <p><strong>Name:</strong> ${buyerName}</p>
+      <p><strong>Address:</strong> ${buyerAddress}</p>
+      <p><strong>Soil:</strong> ${selectedSoil}</p>
+      <p><strong>Quantity:</strong> ${quantity} tons</p>
+    `;
+
+    const homeTab = document.getElementById("home");
+    const firstCard = homeTab.querySelector(".soil-card");
+    homeTab.insertBefore(orderCard, firstCard);
   })
   .catch(err => {
     alert("⚠️ Failed to place order.");
     console.error("Order error:", err);
   });
 });
+  })
+  .catch(err => {
+    alert("⚠️ Failed to place order.");
+    console.error("Order error:", err);
+  });
+});
+    
 // ✅ Feedback form submission
 document.getElementById("feedbackForm").addEventListener("submit", function(e) {
   e.preventDefault();
