@@ -162,6 +162,9 @@ function showTab(tabId, btn) {
   document.getElementById(tabId).classList.add('active');
   btn.classList.add('active');
 }
+const soilUploadURL = "https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec";     // Soil Upload
+const orderURL = "https://script.google.com/macros/s/AKfycbwLvIpyuq59Ouse4PM2f7ViOJmAATwrR_AY5_UL4UpoJmg_Pd6gorNE9UD57j4ZP-YfAA/exec";          // Order Form
+const feedbackURL = "https://script.google.com/macros/s/AKfycbx8DMDGwDGrro5ygI4xbF4-xs2Ymq2yDqUebbYTOj6uL433WLJyo67Ul8zJ_snoyMIw/exec";       // Feedback Form
 
 // ✅ Load soil listings into Home tab
 function loadSoilListings() {
@@ -201,7 +204,7 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   const sellerName = document.getElementById("sellerName").value;
   const contact = document.getElementById("contact").value;
 
-  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
+  fetch(soilUploadURL, {
     method: "POST",
     body: new URLSearchParams({
       sheet: "SoilData",
@@ -235,7 +238,7 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const selectedSoil = document.getElementById("selectedSoil").value;
   const quantity = document.getElementById("quantity").value;
 
-  fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
+  fetch(orderURL, {
     method: "POST",
     body: new URLSearchParams({
       sheet: "OrderData",
@@ -267,7 +270,7 @@ document.getElementById("feedbackForm").addEventListener("submit", function(e) {
   const rating = document.getElementById("rating").value;
   const comments = document.getElementById("comments").value;
 
-  fetch("fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec", {
+  fetch(feedbackURL  {
 ", {
     method: "POST",
     body: new URLSearchParams({
