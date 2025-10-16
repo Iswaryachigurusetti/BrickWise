@@ -161,7 +161,6 @@ function showTab(tabId, btn) {
 const soilUploadURL = "https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec";     // Soil Upload
 const orderURL = "https://script.google.com/macros/s/AKfycbydy-vPloxJmKrCl7mFIo0XhQ1kiehDG2BSbxaPyb2oTSKXzCvyqyjRWFrrfTL_u2WKyg/exec";          // Order Form
 const feedbackURL = "https://script.google.com/macros/s/AKfycbxYofA-BFI3JEVrDCoMjUwYoliq5ZWV9koH8T7Bjb-ACk14byfPvDNYGSxzLtj4UxaR/exec";       // Feedback Form
-
 // ✅ Load soil listings into Home tab
 function loadSoilListings() {
   fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec")
@@ -169,20 +168,21 @@ function loadSoilListings() {
     .then(data => {
       const container = document.getElementById("soilList");
       container.innerHTML = "";
-  // 👇 Reverse the data to show latest first
-     data.forEach(soil => {
-      container.innerHTML += `
-        <div class="soil-card">
-          <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
-          <h3>${soil.soilName}</h3>
-          <p><strong>Location:</strong> ${soil.location}</p>
-          <p><strong>Price:</strong> ₹${soil.price}/ton</p>
-          <p><strong>Description:</strong> ${soil.description}</p>
-          <p><strong>Contact:</strong> ${soil.contact}</p>
-        </div>
-      `;
-    });
-  });
+
+      // 👇 Loop through soil data and display
+      data.forEach(soil => {
+        container.innerHTML += `
+          <div class="soil-card">
+            <p><strong>Seller:</strong> ${soil.sellerName} <span style="color:green;">[${soil.soilName}]</span></p>
+            <h3>${soil.soilName}</h3>
+            <p><strong>Location:</strong> ${soil.location}</p>
+            <p><strong>Price:</strong> ₹${soil.price}/ton</p>
+            <p><strong>Description:</strong> ${soil.description}</p>
+            <p><strong>Contact:</strong> ${soil.contact}</p>
+          </div>
+        `;
+      });
+    })
     .catch(err => {
       document.getElementById("soilList").innerHTML = "⚠️ Failed to load data.";
       console.error("Fetch error:", err);
