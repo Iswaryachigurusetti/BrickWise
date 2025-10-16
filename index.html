@@ -123,16 +123,6 @@
 </section>
 
 <script>
-  function showTab(tabId, btn) {
-    // Hide all sections
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    // Remove active class from all buttons
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    // Show selected section
-    document.getElementById(tabId).classList.add('active'); 
-    // Highlight clicked tab 
-    btn.classList.add('active');
-  }
 fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec")
   .then(res => res.json())
   .then(data => {
