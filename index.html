@@ -66,6 +66,22 @@
     <button class="submit" type="submit" data-i18n="placeOrderBtn">Place Order</button>
   </form>
 </section>
+
+<!-- Seller Tab -->
+<section id="seller">
+  <h2 data-i18n="uploadSoilTitle">📤 Upload Soil</h2>
+  <form id="uploadForm">
+    <div class="form-group"><label data-i18n="uploadSoilNameLabel">Soil Name</label><input type="text" id="soilName" required></div>
+    <div class="form-group"><label data-i18n="uploadLocationLabel">Location</label><input type="text" id="location" required></div>
+    <div class="form-group"><label data-i18n="uploadPriceLabel">Price (₹)</label><input type="number" id="price" required></div>
+    <div class="form-group"><label data-i18n="uploadDescriptionLabel">Description</label><textarea id="description"></textarea></div>
+    <div class="form-group"><label data-i18n="uploadSellerNameLabel">Seller Name</label><input type="text" id="sellerName" required></div>
+    <div class="form-group"><label data-i18n="uploadContactLabel">Contact Info</label><input type="text" id="contact" required></div>
+    <button class="submit" type="submit" data-i18n="submitSoilBtn">Submit Soil</button>
+  </form>
+</section>
+  
+
 <!-- Feedback Tab -->
 <section id="feedback">
   <h2 data-i18n="feedbackTitle">⭐ Submit Feedback</h2>
@@ -173,6 +189,40 @@ function loadSoilListings() {
     });
 }
 
+// ✅ Seller form submission
+document.getElementById("uploadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const soilName = document.getElementById("soilName").value;
+  const location = document.getElementById("location").value;
+  const price = document.getElementById("price").value;
+  const description = document.getElementById("description").value;
+  const sellerName = document.getElementById("sellerName").value;
+  const contact = document.getElementById("contact").value;
+
+  fetch(soilUploadURL, {
+    method: "POST",
+    body: new URLSearchParams({
+      soilName,
+      location,
+      price,
+      description,
+      sellerName,
+      contact
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    alert("✅ Soil uploaded successfully! Redirecting to Home tab...");
+    loadSoilListings();
+    showTab('home', document.querySelector("nav button.tab:nth-child(1)"));
+    document.getElementById("uploadForm").reset();
+  })
+  .catch(err => {
+    alert("⚠️ Failed to upload soil.");
+    console.error("Upload error:", err);
+  });
+});
   // ✅ Order form submission
 document.getElementById("orderForm").addEventListener("submit", function(e) {
   e.preventDefault();
