@@ -123,6 +123,12 @@
 </section>
 
 <script>
+  function showTab(tabId, btn) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
 fetch("https://script.google.com/macros/s/AKfycbzLItG9fnwwuTWOmaKjKO5wzvdjL2veHq1e-LDgVjsoPxju-8eDgXFYUEQuCMa_SIyp6w/exec")
   .then(res => res.json())
   .then(data => {
