@@ -207,7 +207,6 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   fetch(soilUploadURL, {
     method: "POST",
     body: new URLSearchParams({
-      sheet: "SoilData",
       soilName,
       location,
       price,
