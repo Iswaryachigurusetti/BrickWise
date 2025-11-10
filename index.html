@@ -51,7 +51,64 @@
   cursor: pointer;
   width: 100%;
 }
+ #profile-form input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
+#profile-form button {
+  padding: 12px;
+  background-color: #b22222;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+#profile {
+  max-width: 400px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #b22222;
+}
+
+.card p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #b22222;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
   </style>
 </head>
@@ -68,6 +125,7 @@
   <button class="tab" onclick="showTab('language', this)">🌐 Language</button>
   <button class="tab" onclick="showTab('settings', this)">⚙️ Settings</button>
   <button class="tab" onclick="showTab('login', this)">🔐 Login</button>
+  <button class="tab" onclick="showTab('profile', this)">👤 Profile</button>
 </nav>
 
 
@@ -174,6 +232,31 @@
   <p>Already have an account? <a href="#" onclick="showTab('login')">Login here</a></p>
 </section>
 
+<section id="profile" class="tab-content" style="display:none;">
+  <h2>👤 Your Profile</h2>
+
+  <!-- Profile Form (initially visible) -->
+  <form id="profile-form">
+    <input type="text" id="profile-name" placeholder="Name" required />
+    <input type="tel" id="profile-phone" placeholder="Phone" required />
+    <input type="text" id="profile-address" placeholder="Address" required />
+    <input type="text" id="profile-soil" placeholder="Preferred Soil Type" />
+    <button type="submit">Update Profile</button>
+  </form>
+
+  <!-- Profile Card (hidden until form is submitted) -->
+  <div id="profile-card" style="display:none;">
+    <div class="card">
+      <h3 id="card-name"></h3>
+      <p><strong>📞 Phone:</strong> <span id="card-phone"></span></p>
+      <p><strong>🏠 Address:</strong> <span id="card-address"></span></p>
+      <p><strong>🌱 Preferred Soil:</strong> <span id="card-soil"></span></p>
+      <button onclick="editProfile()">✏️ Edit</button>
+    </div>
+  </div>
+
+  <p id="profile-status"></p>
+</section>
 
 </body>
 
@@ -287,7 +370,6 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const buyerAddress = document.getElementById("buyerAddress").value;
   const selectedSoil = document.getElementById("selectedSoil").value;
   const quantity = document.getElementById("quantity").value;
-
 fetch(orderURL, {
   method: "POST",
   headers: {
@@ -487,6 +569,7 @@ function logout() {
   showTab("login");
 }
 
+
 // 🔐 Redirect to login on page load
 window.onload = function() {
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
@@ -495,6 +578,170 @@ window.onload = function() {
   } else {
     showTab("login");
   }
+  window.onload = function() {
+  const savedEmail = localStorage.getItem("loggedInEmail");
+  if (savedEmail) {
+    loggedInEmail = savedEmail;
+
+    // ✅ Hide login/signup forms
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("signup-form").style.display = "none";
+
+    // ✅ Show profile and load data
+    document.getElementById("profile").style.display = "block";
+    loadUserProfile(savedEmail);
+  }
 };
+};
+let loggedInEmail = ""; // Set this during login
+
+function loadUserProfile(email) {
+  fetch(`https://script.google.com/macros/s/AKfycbyGsB73EvSe3KDaXHpJPpuZylpQkq-OSO23cHEqRGlQxiFzPXg-4zJh_VtvDAOLrGFI/exec?email=${email}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById("profile-status").textContent = "⚠️ Profile not found.";
+      } else {
+        document.getElementById("profile-name").value = data.name;
+        document.getElementById("profile-phone").value = data.phone;
+        document.getElementById("profile-address").value = data.address;
+        document.getElementById("profile-soil").value = data.soil;
+      }
+	  // ✅ Store logged-in email
+loggedInEmail = document.getElementById("login-email").value;
+
+// ✅ Hide sign-up form
+document.getElementById("signup-form").style.display = "none";
+
+// ✅ Show profile section
+document.getElementById("profile").style.display = "block";
+
+// ✅ Load profile data
+loadUserProfile(loggedInEmail);
+
+// ✅ Optionally hide login form too
+document.getElementById("login-form").style.display = "none";
+
+    });
+// ✅ Show profile tab
+showTab('profile', document.querySelector("button[onclick*='profile']"));
+document.getElementById("login-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
+  // ✅ Validate credentials (your existing logic here)
+
+  // If login is successful:
+  localStorage.setItem("loggedInEmail", email); // ✅ Save email
+  loggedInEmail = email;
+
+  // ✅ Update UI
+  document.getElementById("login-form").style.display = "none";
+  document.getElementById("signup-form").style.display = "none";
+  document.getElementById("profile").style.display = "block";
+
+  loadUserProfile(email); // ✅ Load profile data
+});
+}
+document.getElementById("signup-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("signup-name").value;
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
+  const phone = document.getElementById("signup-phone").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbyGsB73EvSe3KDaXHpJPpuZylpQkq-OSO23cHEqRGlQxiFzPXg-4zJh_VtvDAOLrGFI/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      action: "signup",
+      name,
+      email,
+      password,
+      phone
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    document.getElementById("signup-status").textContent = response;
+    document.getElementById("signup-form").reset();
+  });
+});
+
+document.getElementById("profile-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("profile-name").value;
+  const phone = document.getElementById("profile-phone").value;
+  const address = document.getElementById("profile-address").value;
+  const soil = document.getElementById("profile-soil").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbyGsB73EvSe3KDaXHpJPpuZylpQkq-OSO23cHEqRGlQxiFzPXg-4zJh_VtvDAOLrGFI/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      email: loggedInEmail,
+      name,
+      phone,
+      address,
+      soil
+    })
+  })
+  .then(res => res.text())
+  .then(response => {
+    document.getElementById("profile-status").textContent = "✅ Profile updated!";
+    showProfileCard(name, phone, address, soil);
+  });
+});
+function showProfileCard(name, phone, address, soil) {
+  document.getElementById("profile-form").style.display = "none";
+  document.getElementById("profile-card").style.display = "block";
+
+  document.getElementById("card-name").textContent = name;
+  document.getElementById("card-phone").textContent = phone;
+  document.getElementById("card-address").textContent = address;
+  document.getElementById("card-soil").textContent = soil;
+}
+
+function editProfile() {
+  document.getElementById("profile-form").style.display = "block";
+  document.getElementById("profile-card").style.display = "none";
+}
+
+
+function loadUserProfile(email) {
+  fetch(`https://script.google.com/macros/s/AKfycbyGsB73EvSe3KDaXHpJPpuZylpQkq-OSO23cHEqRGlQxiFzPXg-4zJh_VtvDAOLrGFI/exec?email=${email}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById("profile-status").textContent = "⚠️ Profile not found.";
+      } else {
+        showProfileCard(data.name, data.phone, data.address, data.soil);
+        document.getElementById("profile-name").value = data.name;
+        document.getElementById("profile-phone").value = data.phone;
+        document.getElementById("profile-address").value = data.address;
+        document.getElementById("profile-soil").value = data.soil;
+      }
+    });
+}
+function resetView() {
+  document.getElementById("signup-form").style.display = "block";
+  document.getElementById("profile").style.display = "none";
+  document.getElementById("login-form").style.display = "block";
+}
+function logout() {
+  localStorage.removeItem("loggedInEmail");
+  resetView(); // Show login/signup again
+}
+
+function resetView() {
+  document.getElementById("login-form").style.display = "block";
+  document.getElementById("signup-form").style.display = "block";
+  document.getElementById("profile").style.display = "none";
+}
+
 </script>
 
